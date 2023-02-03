@@ -66,16 +66,11 @@ export default function CaseTwo() {
       if (!b.replies) {
         console.log('!a: ', a);
         console.log('!b: ', b);
-        return a + 1
-      }
-
+        return a + 1;
+      } 
       console.log('=a: ', a);
       console.log('=b: ', b);
-      return (
-        a +
-        b.replies.length +
-        countComments(comment)
-      );
+      return a + b.replies.length;
     }, 0);
 
   return (

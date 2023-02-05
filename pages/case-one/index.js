@@ -19,7 +19,7 @@ import {
 
 export default function CaseOne() {
   const router = useRouter();
-  const fruits = [
+  let fruits = [
     {
       fruitId: 1,
       fruitName: 'Apel',
@@ -64,7 +64,7 @@ export default function CaseOne() {
     },
   ];
 
-  const [fruit, setFruit] = useState(fruits)
+  const [fruit, setFruit] = useState([])
 
   function compare(a, b) {
     if (a.fruitName.toLowerCase() < b.fruitName.toLowerCase()) {
@@ -76,13 +76,13 @@ export default function CaseOne() {
     return 0;
   }
 
-  useEffect(() => {
-    findDuplicates(fruits);
-  } ,[fruit])
+  useEffect(async () => {
+    await findDuplicates(fruits);
+  } ,[])
 
 
-  const findDuplicates = (arr) => {
-    let sorted_arr = arr.slice().sort(compare); 
+  const findDuplicates = async (arr) => {
+    let sorted_arr = await arr.slice().sort(compare); 
     // console.log('sorted_arr = ', sorted_arr);
     for (
       let i = 0;

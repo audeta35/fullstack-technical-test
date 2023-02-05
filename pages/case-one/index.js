@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import {
   Accordion,
@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 
 export default function CaseOne() {
-    const router = useRouter();
+  const router = useRouter();
   const fruits = [
     {
       fruitId: 1,
@@ -64,6 +64,54 @@ export default function CaseOne() {
     },
   ];
 
+  const [fruit, setFruit] = useState(fruits)
+
+  function compare(a, b) {
+    if (a.fruitName.toLowerCase() < b.fruitName.toLowerCase()) {
+      return -1;
+    }
+    if (a.fruitName.toLowerCase() > b.fruitName.toLowerCase()) {
+      return 1;
+    }
+    return 0;
+  }
+
+  useEffect(() => {
+    findDuplicates(fruits);
+  } ,[fruit])
+
+
+  const findDuplicates = (arr) => {
+    let sorted_arr = arr.slice().sort(compare); 
+    // console.log('sorted_arr = ', sorted_arr);
+    for (
+      let i = 0;
+      i < sorted_arr.length - 1;
+      i++
+    ) {
+      // console.log('sorted_arr: ', sorted_arr[i].fruitName.toLowerCase())
+      if (
+        sorted_arr[
+          i + 1
+        ].fruitName.toLowerCase() ===
+        sorted_arr[i].fruitName.toLowerCase()
+      ) {
+        fruits.splice(
+          fruits.indexOf(sorted_arr[i]),
+          1
+        );
+      }
+
+      // console.log('splice: ', fruits)
+    }
+      return setFruit(fruits);
+
+    // console.log(
+    //   'index of: ',
+    //   fruits.indexOf(results[1])
+    // );
+  };
+
   function amount(item) {
     return item.stock;
   }
@@ -92,7 +140,7 @@ export default function CaseOne() {
           </AccordionSummary>
 
           <AccordionDetails>
-            {fruits?.map((item) => (
+            {fruit?.map((item) => (
               <Chip
                 label={item?.fruitName}
                 variant='outlined'

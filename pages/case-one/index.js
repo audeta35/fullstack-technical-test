@@ -78,7 +78,7 @@ export default function CaseOne() {
 
   useEffect(() => {
     findDuplicates(fruits);
-  } ,[fruit])
+  } ,[])
 
 
   const findDuplicates = async (arr) => {
@@ -130,7 +130,7 @@ export default function CaseOne() {
       >
         Back
       </Button>
-      {fruit.length && (
+      {fruit.length !== 0 && (
         <div>
           <Accordion>
             <AccordionSummary>
